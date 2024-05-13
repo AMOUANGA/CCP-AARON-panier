@@ -1,0 +1,78 @@
+    <nav class="navbar navbar-expand-lg NAVB">
+        <div class="container-fluid">
+            <a class="navbar-brand"   href="{{ path('acceuil') }}">  <img src="{{ asset('img/logo-site.png')}}" width= "130px"> </a>
+
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ path('acceuil') }}">Accueil</a>
+            </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('cartes') }}">Cartes de visites</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('affiches') }}">Affiches</a>
+                </li>
+
+
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('flyers') }}">Flyers</a>
+                </li>
+                
+
+
+
+        {% if app.user %}
+            {# l'utilisateur est connecté  #}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_profil') }}">Mon Profil</a>
+            </li>
+
+{# le back office ne soit pas visible par les autres user en dehors de l'admin #}
+                {% if is_granted('ROLE_ADMIN') %} 
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin') }}">Back office</a>
+            </li>
+                {% endif %}
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_logout') }}">Deconnexion</a>
+            </li>
+
+        {% else %}
+                {# l'utilisateur n'est pas connecté #}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                </li>
+        {% endif %}
+            
+
+    <li class="nav-item">
+                    <a class="nav-link"  href="{{ path('app_stripee') }}">payer</a>
+                </li> 
+                
+    </ul>
+
+        <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        </div>
+    </div>
+</nav> 

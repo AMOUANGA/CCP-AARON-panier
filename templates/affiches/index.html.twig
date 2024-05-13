@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}  IRON-GRAPH{% endblock %}
+{% block h1 %} 
+        {% if app.user %}
+                BONJOUR {{ app.user.prenom }} total {{total ~"€"}} 
+        {% else %}
+        BIENVENUE
+        {% endif %}
+{% endblock %}
+
+{% block body %}
+{#  {{ dump(app.user) }} #}
+<div id="banner" >
+	<div class="arrow">
+			<img class="arrow_left" src="{{asset('img/arrow_left.png')}}" alt="arrow left">
+			<img class="arrow_right" src="{{asset('img/arrow_right.png')}}" alt="arrow right">
+                        
+	</div>
+	<img class="banner-img" src="{{asset('img/IMG FLYERS/flyers.jpeg')}}" alt="Banner Print-it">
+	<div class="dots">
+	</div>
+</div>
+<div>
+        <h1>Produit index</h1>
+
+        <table class="table">
+                <thead>
+                <tr>
+                        <th>Nom</th>
+                        <th>Taille</th>
+                        <th>OptionNom</th>
+                        <th>prix</th>
+                </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+                <tr>
+                        <td>{{ produit.getNom() }}</td>
+                        <td>{{ produit.getTaille() }}</td>
+                        <td>{{ produit.getOptionNom() }}</td>
+                        <td>{{ produit.getPrix()~"€" }}</td>
+                        <td>
+                        <a href="{{ path('add_panier', {'id': produit.id}) }}">ajouter au panier</a>
+                
+                        </td>
+                </tr>
+                {% else %}
+                <tr>
+                        <td colspan="2">no records found</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+        </table>
+
+
+
+
+</div>
+
+        <script>
+        const slides = [
+{
+"image":"../img/IMG AFFICHES/affiche.jpeg",
+"tagLine":"Impressions tous formats en boutique et en ligne"
+},
+
+{
+"image":"../img/IMG CARTE DE VISITE/carte.jpeg",
+"tagLine":"Impressions tous formats en boutique et en ligne"
+},
+
+
+{
+"image":"../img/IMG FLYERS/flyers.jpeg",
+"tagLine":"Impressions tous formats en boutique et en ligne"
+},
+
+];
+
+function initDots() {
+const sliderDots = document.querySelector('.dots');
+if (slides.length > 1) { // Condition: Créer les dots seulement s'il y a plus d'un slide
+slides.forEach((slide, index) => {
+// Création du bullet point pour chaque slide
+const dot = document.createElement('div');
+dot.classList.add('dot');
+// Vous pouvez ajouter un événement clic au dot pour naviguer vers le slide correspondant
+dot.addEventListener('click', () => {
+goToSlide(index);
+});
+sliderDots.appendChild(dot);
+});
+const indicators = document.querySelectorAll('.dots .dot');
+indicators[0].classList.add('dot_selected');
+}
+}
+// Fonction pour naviguer vers un slide spécifique
+function goToSlide(slideIndex) {
+currentIndex = slideIndex;
+updateSlide();
+}
+initDots(); // Initialisation des dots
+
+const numberOfSlides = slides.length;
+let currentIndex = 0;
+
+// Sélectionner les éléments flèche gauche et droite dans le DOM
+let arrowLeft = document.querySelector('.arrow_left');
+let arrowRight = document.querySelector('.arrow_right');
+
+// Ajouter un gestionnaire d'événement pour le clic sur la flèche gauche
+arrowLeft.addEventListener('click', function() {
+console.log('Flèche gauche cliquée');
+currentIndex = (currentIndex - 1 + numberOfSlides) % numberOfSlides;
+updateSlide();
+});
+function updateSlide(){
+let banerImage= document.querySelector('.banner-img');
+let banerParagraph= document.querySelector('#banner p');
+banerImage.src=slides[currentIndex].image;
+banerParagraph.innerHTML=slides[currentIndex].tagLine;
+const indicators = document.querySelectorAll('.dots .dot');
+
+// Supprime la classe .dot_selected de tous les points
+indicators.forEach((indicator) => {
+indicator.classList.remove('dot_selected');
+});
+
+// Ajoute la classe .dot_selected au point correspondant à l'index actuel
+indicators[currentIndex].classList.add('dot_selected');
+}
+
+// Ajouter un gestionnaire d'événement pour le clic sur la flèche droite
+arrowRight.addEventListener('click', function() {
+console.log('Flèche droite cliquée');
+currentIndex = (currentIndex + 1) % numberOfSlides;
+updateSlide();
+});
+
+        
+        </script>
+{# {{ dump(app.user) }} #}
+
+
+{% endblock %}
+

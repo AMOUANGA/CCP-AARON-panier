@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} BACK OFFICE {% endblock %}
+{% block h1 %} BACK OFFICE  {% endblock %}
+
+
+{% block body %}
+
+    <a class="btn btn-primary" href="{{path("app_produit_index")}}">Gestion des produits</a>
+    <a class="btn btn-primary" href="{{path("app_taille_index")}}"> Format taille  </a> 
+    <a class="btn btn-primary" href="{{path("app_prestation_index")}}"> Prestation  </a> 
+    <a class="btn btn-primary" href="{{path("app_option_nom_index")}}"> Option  </a>
+
+{% endblock %}
